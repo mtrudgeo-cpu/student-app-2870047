@@ -9,19 +9,27 @@ def index():
     return render_template("index.html")
 
 #decorator to access the service
-@app.route("/carclassify", methods=['GET', 'POST'])
-def carclassify():
+@app.route("/studentclassify", methods=['GET', 'POST'])
+def studentclassify():
 
     #extract form inputs
-    buying = request.form.get("buying")
-    maint = request.form.get("maint")
-    doors = request.form.get("doors")
-    persons = request.form.get("persons")
-    lug_boot = request.form.get("lug_boot")
-    safety = request.form.get("safety")
+    course = request.form.get("course")
+    sneeds = request.form.get("sneeds")
+    debtor = request.form.get("debtor")
+    tuition = request.form.get("tuition")
+    scholarship = request.form.get("scholarship")
+    age = request.form.get("age")
+    gender = request.form.get("gender")
+    international = request.form.get("international")
+    first_enrolled = request.form.get("first_enrolled")
+    first_approved = request.form.get("first_approved")
+    second_enrolled = request.form.get("second_enrolled")
+    second_approved = request.form.get("second_approved")
 
     #extract data from json
-    input_data = json.dumps({"buying": buying, "maint": maint, "doors": doors, "persons": persons, "lug_boot": lug_boot, "safety": safety})
+    input_data = json.dumps({"course": course, "sneeds": sneeds, "debtor": debtor, "tuition": tuition, "scholarship": scholarship,
+                             "age":age, "gender":gender,"international":international,"first_enrolled":first_enrolled,"first_approved":first_approved,
+                             "second_enrolled":second_enrolled,"second_approved":second_approved})
 
     #url for car classification api
     url = "http://localhost:5000/api"
@@ -30,4 +38,7 @@ def carclassify():
     results =  requests.post(url, input_data)
 
     #send input values and prediction result to index.html for display
-    return render_template("index.html", buying = buying, maint = maint, doors = doors, persons = persons, lug_boot = lug_boot, safety = safety, results=results.content.decode('UTF-8'))
+    return render_template("index.html", course = course, sneeds = sneeds, debtor = debtor, tuition = tuition, scholarship = scholarship,
+                           age = age, gender=gender,international=international,first_enrolled=first_enrolled,
+                            first_approved=first_approved,second_enrolled=second_enrolled,
+                            second_approved=second_approved, results=results.content.decode('UTF-8'))
