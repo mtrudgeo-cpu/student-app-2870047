@@ -1,73 +1,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Car Evaluation</title>
+    <title>Student Dropout Risk Predictor</title>
  </head>
 <body>
-        <h2>Welcome to Car Evaluation App</h2>
-        <h3>Enter your car info</h3>
-        <form name="carform" id="carform" action = "{{ url_for('carclassify') }}" method="POST">
+        <h2>Welcome to Student Dropout Risk Predictor App</h2>
+        <h3>Enter your information</h3>
+        <form name="studentform" id="studentform" action = "{{ url_for('studentclassify') }}" method="POST">
             <table border="1" style="border-color:gray; border-collapse:collapse;" cellpadding="5" cellspacing="5">
                 <tr>
-                    <td><p>Buying Price </p>
-                        <select name = "buying">
-                            <option value="vhigh">Very high</option>
-                            <option value="high">High</option>
-                            <option value="med">Medium</option>
-                            <option value="low">Low</option>
+                    <td><p>Undergrad Program </p>
+                        <select name = "course">
+                            <option value="1">Biofuel Production Technologies</option>
+                            <option value="2">Animation and Multimedia Design</option>
+                            <option value="10">Social Service</option>
+                            <option value="4">Agronomy</option>
+                            <option value="5">Communication Design</option>
+                            <option value="6">Veterinary Nursing</option>
+                            <option value="7">Informatics Engineering</option>
+                            <option value="8">Equinculture</option>
+                            <option value="9">Management</option>
+                            <option value="11">Tourism</option>
+                            <option value="12">Nursing</option>
+                            <option value="13">Oral Hygiene </option>
+                            <option value="14">Advertising and Marketing Management </option>
+                            <option value="15">Journalism and Communication </option>
+                            <option value="16">Basic Education </option>
                         </select>
                     </td>
-                    <td><p>Maintenance Price </p>
-                        <select name = "maint">
-                            <option value="vhigh">Very high</option>
-                            <option value="high">High</option>
-                            <option value="med">Medium</option>
-                            <option value="low">Low</option>
+                    <td><p>Student with Special Needs</p>
+                        <select name = "sneeds">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
                         </select>
                     </td>
-                    <td><p>Number of doors </p>
-                        <select name = "doors">
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5-more">5-more</option>
+                    <td><p>Student has debt</p>
+                        <select name = "debtor">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td><p>Number of persons </p>
-                        <select name = "persons">
-                            <option value="2">2</option>
-                            <option value="4">4</option>
-                            <option value="more">more</option>
+                    <td><p>Student's tuition fees are up to date </p>
+                        <select name = "tuition">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
                         </select>
                     </td>
-                    <td><p>Luggage boot size </p>
-                        <select name = "lug_boot">
-                            <option value="small">Small</option>
-                            <option value="med">Medium</option>
-                            <option value="big">Big</option>
+                    <td><p>Student Gender </p>
+                        <select name = "gender">
+                            <option value="1">Male</option>
+                            <option value="0">Female</option>
                         </select>
                     </td>
-                    <td><p>Estimated safety </p>
-                        <select name = "safety">
-                            <option value="low">Low</option>
-                            <option value="med">Medium</option>
-                            <option value="high">High</option>
+                    <td><p>Student holds a scholarship </p>
+                        <select name = "scholarship">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
                         </select>    
+                    </td> 
+                    <td><p>Student age at enrollment </p>
+                        <input type="number" name="age" min="17" max="70" required>    
+                    </td>
+                    <td><p>International Student </p>
+                        <select name = "international">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>    
+                    </td> 
+                    <td><p>Student 1st semester enrolled units </p>
+                        <input type="number" name="first_enrolled" min="0" max="26" required>    
+                    </td>
+                    <td><p>Student 1st semester approved units </p>
+                        <input type="number" name="first_approved" min="0" max="26" required>    
+                    </td> 
+                    <td><p>Student 2nd semester enrolled units </p>
+                        <input type="number" name="second_enrolled" min="0" max="26" required>    
+                    </td>
+                    <td><p>Student 2nd semester approved units </p>
+                        <input type="number" name="second_approved" min="0" max="26" required>    
                     </td>         
                 </tr>
             </table>
-            <input type="hidden" id="forminput" name="forminput"  >            
-            <p><input type="submit" value="Evaluate my car"></p>
+            <p><input type="submit" value="Is the student at risk of dropout college?"></p>
              {% if (results) %} 
-             <h3> Car evaluation: {{ results }}  </h3>
+             <h3> Student Dropout Risk Predictor: {{ results }}  </h3>
              <p> for following features: </p>
-             <p> buying: {{buying}} </p>
-             <p> maint: {{maint}} </p>
-             <p> doors: {{doors}}</p>
-             <p> persons: {{persons}} </p>
-             <p> safety: {{safety}} </p>
+             <p> Undergrad Program: {{course}} </p>
+             <p> Student with Special Needs: {{sneeds}} </p>
+             <p> Student has debt: {{debtor}} </p> 
+             <p> Student's tuition fees are up to date: {{tuition}} </p> 
+             <p> Student Gender : {{gender}} </p> 
+             <p> Student holds a scholarship: {{scholarship}} </p> 
+             <p> Student age at enrollment: {{age}} </p>  
+             <p> International Student: {{international}} </p> 
+             <p> Student 1st semester enrolled units: {{first_enrolled}} </p> 
+             <p> Student 1st semester approved units: {{first_approved}} </p> 
+             <p> Student 2nd semester enrolled units: {{second_enrolled}} </p>   
+             <p> Student 2nd semester approved units: {{second_approved}} </p>
              {% endif %} 
         </form>
 </body>
