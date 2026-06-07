@@ -2,17 +2,17 @@ from application import app
 from flask import render_template, request, json, jsonify
 import requests
 
-#decorator to access the app
+# Home page
 @app.route("/")
 @app.route("/index")
 def index():
     return render_template("index.html")
 
-#decorator to access the service
+# Student classification route
 @app.route("/studentclassify", methods=['GET', 'POST'])
 def studentclassify():
 
-    #extract form inputs
+    # Extract form inputs
     course = request.form.get("course")
     sneeds = request.form.get("sneeds")
     debtor = request.form.get("debtor")
@@ -26,19 +26,34 @@ def studentclassify():
     second_enrolled = request.form.get("second_enrolled")
     second_approved = request.form.get("second_approved")
 
-    #extract data from json
-    input_data = json.dumps({"course": course, "sneeds": sneeds, "debtor": debtor, "tuition": tuition, "scholarship": scholarship,
-                             "age":age, "gender":gender,"international":international,"first_enrolled":first_enrolled,"first_approved":first_approved,
-                             "second_enrolled":second_enrolled,"second_approved":second_approved})
+    # Build JSON payload
+    input_data = json.dumps({
+        "course": course,
+        "sneeds": sneeds,
+        "debtor": debtor,
+        "tuition": tuition,
+        "gender": gender,
+        "scholarship": scholarship,
+        "age": age,
+        "international": international,
+        "first_enrolled": first_enrolled,
+        "first_approved": first_approved,
+        "second_enrolled": second_enrolled,
+        "second_approved": second_approved
+    })
 
-    #url for car classification api
+    # URL for ML API
     url = "http://localhost:5000/api"
 
-    #post data to url
-    results =  requests.post(url, input_data)
+    # POST request with correct headers
+    results = requests.post(url, data=input_data, headers={"Content-Type": "application/json"})
 
-    #send input values and prediction result to index.html for display
-    return render_template("index.html", course = course, sneeds = sneeds, debtor = debtor, tuition = tuition, scholarship = scholarship,
-                           age = age, gender=gender,international=international,first_enrolled=first_enrolled,
-                            first_approved=first_approved,second_enrolled=second_enrolled,
-                            second_approved=second_approved, results=results.content.decode('UTF-8'))
+    # Render results
+    return render_template(
+        "index.html",
+        course=course, sneeds=sneeds, debtor=debtor, tuition=tuition,
+        scholarship=scholarship, age=age, gender=gender,
+        international=international, first_enrolled=first_enrolled,
+        first_approved=first_approved, second_enrolled=second_enrolled,
+        second_approved=second_approved, results=results.content.decode('UTF-8')
+    )
