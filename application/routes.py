@@ -1,8 +1,8 @@
 from application import app
-from flask import render_template, request, json, jsonify
+from flask import render_template, request
+import json
 import requests
 
-# Home page
 @app.route("/")
 @app.route("/index")
 def index():
