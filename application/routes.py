@@ -45,8 +45,8 @@ def studentclassify():
     })
 
     # URL for ML API
-    url = "http://localhost:5000/api"
-    #url = "https://student-model-app-558233e4d437.herokuapp.com/api"
+    #url = "http://localhost:5000/api"
+    url = "https://student-model-app-558233e4d437.herokuapp.com/api"
 
     # POST request with correct headers
     results = requests.post(url, json={
