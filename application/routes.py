@@ -45,11 +45,26 @@ def studentclassify():
     })
 
     # URL for ML API
-    #url = "http://localhost:5000/api"
-    url = "https://student-model-app-558233e4d437.herokuapp.com/api"
+    url = "http://localhost:5000/api"
+    #url = "https://student-model-app-558233e4d437.herokuapp.com/api"
 
     # POST request with correct headers
-    results = requests.post(url, data=input_data, headers={"Content-Type": "application/json"})
+    results = requests.post(url, json={
+        "course": course,
+        "sneeds": sneeds,
+        "debtor": debtor,
+        "tuition": tuition,
+        "gender": gender,
+        "scholarship": scholarship,
+        "age": age,
+        "international": international,
+        "first_enrolled": first_enrolled,
+        "first_approved": first_approved,
+        "second_enrolled": second_enrolled,
+        "second_approved": second_approved,
+        "model": model_choice
+    })
+
 
     # Render results
     return render_template(
