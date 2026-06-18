@@ -70,20 +70,22 @@
         }
 
         input[type="submit"] {
-            width: 100%;
-            height: 45px;
+            display: block;
+            width: calc(100% - 30px);
+            height: 60px;
             background-color: #003366;
             color: white;
             border: none;
             border-radius: 4px;
-            font-size: 15px;
+            font-size: 16px;
             cursor: pointer;
-            font-weight: bold;
             transition: 0.3s;
+            margin-top: 10px;
         }
 
         input[type="submit"]:hover {
             background-color: #0055aa;
+            transform: scale(1.02);
         }
 
         .results-box {
@@ -108,7 +110,7 @@
 <body>
 <div class="container">
     <h2>Student Dropout Risk Predictor</h2>
-    <h3>Enter your information</h3>
+    <h3>To evaluate CMU dropout risk, enter student information.</h3>
 
     <form name="studentform" id="studentform" action="{{ url_for('studentclassify') }}" method="POST">
 
@@ -194,27 +196,40 @@
             </div>
 
             <div class="form-group">
-                <p>1st Semester Enrolled</p>
+                <p>Number of Units Enrolled in 1st Semester</p>
                 <input type="number" name="first_enrolled" min="0" max="26" required>
             </div>
 
             <div class="form-group">
-                <p>1st Semester Approved</p>
+                <p>Number of Units Approved in 1st Semester</p>
                 <input type="number" name="first_approved" min="0" max="26" required>
             </div>
 
             <div class="form-group">
-                <p>2nd Semester Enrolled</p>
+                <p>Number of Units Enrolled in 2nd Semester</p>
                 <input type="number" name="second_enrolled" min="0" max="26" required>
             </div>
 
             <div class="form-group">
-                <p>2nd Semester Approved</p>
+                <p>Number of Units Approved in 2nd Semester</p>
                 <input type="number" name="second_approved" min="0" max="26" required>
             </div>
+          
         </div>
 
-        <input type="submit" value="Is the student at risk of dropping out of college??">
+        <div class="form-grid">
+            <div class="form-group">
+                <p>Select Model</p>
+                <select name="model">
+                    <option value="rf">Random Forest</option>
+                    <option value="knn">K‑Nearest Neighbors</option>
+                </select>
+            </div>
+
+            <div style="grid-column: span 5; display: flex; align-items: center;">
+                <input type="submit" value="Is the student at risk of dropping out of college?" style="width: 100%;">
+            </div>
+        </div>
 
         {% if results %}
         <div class="results-box">
@@ -233,6 +248,7 @@
                 <li>1st Approved: {{ first_approved }}</li>
                 <li>2nd Enrolled: {{ second_enrolled }}</li>
                 <li>2nd Approved: {{ second_approved }}</li>
+                <li>Model Used: {{ model }}</li>
             </ul>
         </div>
         {% endif %}

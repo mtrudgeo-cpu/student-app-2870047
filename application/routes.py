@@ -25,6 +25,7 @@ def studentclassify():
     first_approved = request.form.get("first_approved")
     second_enrolled = request.form.get("second_enrolled")
     second_approved = request.form.get("second_approved")
+    model_choice = request.form.get("model")
 
     # Build JSON payload
     input_data = json.dumps({
@@ -39,7 +40,8 @@ def studentclassify():
         "first_enrolled": first_enrolled,
         "first_approved": first_approved,
         "second_enrolled": second_enrolled,
-        "second_approved": second_approved
+        "second_approved": second_approved,
+        "model": model_choice
     })
 
     # URL for ML API
@@ -56,5 +58,5 @@ def studentclassify():
         scholarship=scholarship, age=age, gender=gender,
         international=international, first_enrolled=first_enrolled,
         first_approved=first_approved, second_enrolled=second_enrolled,
-        second_approved=second_approved, results=results.content.decode('UTF-8')
+        second_approved=second_approved, model=model_choice, results=results.content.decode('UTF-8')
     )
